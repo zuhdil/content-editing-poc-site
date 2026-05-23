@@ -77,6 +77,13 @@ export function merge({ snapshot, contentRepo, yaml, schemaKeys }) {
 
 // Internal helper duplicated from yaml-io.mjs to keep merge.mjs pure
 // (importable without dragging in fs/IO).
+//
+// Trailing whitespace is stripped from every value so that block-scalar
+// YAML strings (which include a trailing newline after `yaml.parse`) compare
+// equal to the same content read back from the content repo via
+// `readContentRepo` (which also strips trailing whitespace). Without this
+// normalization, all markdown fields would appear to have diverged on every
+// sync because the YAML value ends in `\n` while the file-based value does not.
 function flatten(obj, prefix = "") {
   const out = {};
   for (const [key, value] of Object.entries(obj ?? {})) {
@@ -84,7 +91,7 @@ function flatten(obj, prefix = "") {
     if (value && typeof value === "object" && !Array.isArray(value)) {
       Object.assign(out, flatten(value, next));
     } else if (value != null) {
-      out[next] = String(value);
+      out[next] = String(value).replace(/\s+$/u, "");
     }
   }
   return out;
