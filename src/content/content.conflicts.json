@@ -1,4 +1,11 @@
 {
-  "createdAt": null,
-  "entries": []
+  "createdAt": "2026-05-23T10:36:40.529Z",
+  "entries": [
+    {
+      "key": "home.feature_one.title",
+      "snapshotValue": "Edit in GitHub",
+      "contentRepoValue": "Conflict left",
+      "yamlValue": "Conflict right"
+    }
+  ]
 }
