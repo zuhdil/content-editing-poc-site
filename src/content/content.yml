@@ -1,7 +1,7 @@
 home:
   hero:
     title: Welcome to the Content POC
-    subtitle: A demonstration of separate-repo content editing
+    subtitle: Edited from the GitHub UI on 2026-05-23
   feature_one:
     title: Edit in GitHub
     description: |-
