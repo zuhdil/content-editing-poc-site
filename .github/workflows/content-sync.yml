@@ -1,0 +1,68 @@
+name: Content sync
+
+on:
+  repository_dispatch:
+    types: [content-updated]
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/content.yml'
+      - 'src/content/content.schema.json'
+      - 'src/content/content.snapshot.json'
+      - 'src/content/content.conflicts.json'
+  workflow_dispatch:
+
+concurrency:
+  group: content-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Checkout site repo
+        uses: actions/checkout@v4
+        with:
+          path: site
+          fetch-depth: 0
+          token: ${{ secrets.CONTENT_REPO_TOKEN }}
+
+      - name: Checkout content repo
+        uses: actions/checkout@v4
+        with:
+          repository: zuhdil/content-editing-poc-content
+          path: content-source
+          token: ${{ secrets.CONTENT_REPO_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - run: cd site && npm ci
+
+      - name: Configure git
+        run: |
+          git config --global user.name "content-sync[bot]"
+          git config --global user.email "content-sync@users.noreply.github.com"
+
+      - name: Set content-source remote
+        run: |
+          cd content-source
+          git remote set-url origin https://x-access-token:${{ secrets.CONTENT_REPO_TOKEN }}@github.com/zuhdil/content-editing-poc-content.git
+
+      - name: Set site remote
+        run: |
+          cd site
+          git remote set-url origin https://x-access-token:${{ secrets.CONTENT_REPO_TOKEN }}@github.com/zuhdil/content-editing-poc-site.git
+
+      - name: Run sync
+        working-directory: site
+        env:
+          CONTENT_REPO_PATH: ../content-source
+          GH_TOKEN: ${{ secrets.CONTENT_REPO_TOKEN }}
+        run: npm run content:sync
