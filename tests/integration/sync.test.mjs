@@ -119,6 +119,13 @@ describe("orchestrator — conflict path", () => {
     const snap = JSON.parse(readFileSync(join(site, "src/content/content.snapshot.json"), "utf8"));
     // Snapshot was bumped to the content-repo side per the spec.
     expect(snap["home.hero.title"]).toBe("Content-side change");
+
+    // content.yml's conflicting key is rolled back to the last-agreed
+    // (snapshot) value, so the live deploy never publishes an unreconciled
+    // edit. The yaml-side value must NOT remain in content.yml.
+    const yamlAfter = readFileSync(join(site, "src/content/content.yml"), "utf8");
+    expect(yamlAfter).toContain("Welcome to the Content POC");
+    expect(yamlAfter).not.toContain("Yaml-side change");
   });
 
   it("the gate halts further syncs while conflicts are active", async () => {

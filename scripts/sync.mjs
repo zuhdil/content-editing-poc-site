@@ -6,7 +6,7 @@ import { merge } from "./lib/merge.mjs";
 import { readSnapshot, writeSnapshot } from "./lib/snapshot.mjs";
 import { readConflicts, writeConflicts, hasActiveConflicts } from "./lib/conflicts.mjs";
 import { readContentRepo, writeContentRepoFiles } from "./lib/content-repo-io.mjs";
-import { readYamlFile, writeYamlFile } from "./lib/yaml-io.mjs";
+import { readYamlFile, writeYamlFile, flatten, unflatten } from "./lib/yaml-io.mjs";
 import * as git from "./lib/git.mjs";
 import { exportSchema } from "./export-schema.mjs";
 
@@ -46,11 +46,23 @@ export async function runSync({ siteRoot, contentRepoPath }) {
 
   if (result.conflicts.length > 0) {
     log(`conflicts on: ${result.conflicts.map((c) => c.key).join(", ")}`);
+    // Roll the conflicting keys in content.yml back to their last-agreed
+    // (snapshot) value before committing. Deploy fires on every push to
+    // main, so without this the conflicting yaml-side edit would stay live
+    // on the site until a human resolved it. Rolling back means the deploy
+    // triggered by this commit republishes the previous agreed content.
+    // Keys with no prior agreed value (bootstrap conflicts) are left as-is —
+    // there is nothing to roll back to.
+    const yamlFlat = flatten(yaml);
+    for (const c of result.conflicts) {
+      if (c.snapshotValue != null) yamlFlat[c.key] = c.snapshotValue;
+    }
+    writeYamlFile(YAML_PATH, unflatten(yamlFlat));
     writeConflicts(CONFLICTS_PATH, result.conflicts);
     writeSnapshot(SNAPSHOT_PATH, result.newSnapshot);
     if (git.hasChanges(siteRoot)) {
-      git.add(siteRoot, [SNAPSHOT_PATH, CONFLICTS_PATH]);
-      git.commit(siteRoot, "Record content conflicts");
+      git.add(siteRoot, [YAML_PATH, SNAPSHOT_PATH, CONFLICTS_PATH]);
+      git.commit(siteRoot, "Record content conflicts and hold yaml at last agreed value");
       git.push(siteRoot);
     }
     await openConflictIssue(result.conflicts);
