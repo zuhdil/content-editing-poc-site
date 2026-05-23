@@ -1,6 +1,14 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
 
+// NOTE: this flatten intentionally does NOT trim trailing whitespace,
+// because its callers (resolver, bootstrap) round-trip values straight
+// back through the YAML serialiser, where the trailing newline is
+// preserved consistently. merge.mjs has its OWN internal flatten that
+// DOES trim, because it compares yaml values against content-repo file
+// contents (which are read trimmed). Do not "unify" these two by
+// removing the trim in merge.mjs — that would make markdown values
+// appear permanently diverged. See merge.mjs for the matching note.
 export function flatten(obj, prefix = "") {
   const out = {};
   for (const [key, value] of Object.entries(obj ?? {})) {
