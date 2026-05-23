@@ -1,0 +1,31 @@
+{
+  "name": "content-editing-poc-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "content:sync": "node scripts/sync.mjs",
+    "content:resolve": "node scripts/resolve-conflicts.mjs",
+    "content:bootstrap": "node scripts/bootstrap-content-repo.mjs",
+    "content:export-schema": "node scripts/export-schema.mjs"
+  },
+  "dependencies": {
+    "marked": "^12.0.0",
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "yaml": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}
