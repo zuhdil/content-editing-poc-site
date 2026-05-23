@@ -1,0 +1,17 @@
+{
+  "home.hero.title":              { "type": "text",     "maxLength": 80  },
+  "home.hero.subtitle":           { "type": "text",     "maxLength": 200 },
+  "home.feature_one.title":       { "type": "text",     "maxLength": 60  },
+  "home.feature_one.description": { "type": "markdown", "maxLength": 600 },
+  "home.feature_two.title":       { "type": "text",     "maxLength": 60  },
+  "home.feature_two.description": { "type": "markdown", "maxLength": 600 },
+  "home.cta.button_label":        { "type": "text",     "maxLength": 30  },
+  "about.heading":                { "type": "text",     "maxLength": 80  },
+  "about.intro":                  { "type": "text",     "maxLength": 300 },
+  "about.mission_body":           { "type": "markdown", "maxLength": 800 },
+  "features.heading":             { "type": "text",     "maxLength": 80  },
+  "features.subtitle":            { "type": "text",     "maxLength": 200 },
+  "features.footer_note":         { "type": "markdown", "maxLength": 400 },
+  "layout.footer.copyright":      { "type": "text",     "maxLength": 100 },
+  "layout.nav.tagline":           { "type": "text",     "maxLength": 60  }
+}
