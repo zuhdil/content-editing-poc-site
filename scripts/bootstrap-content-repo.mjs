@@ -213,6 +213,11 @@ writeFileSync(join(target, ".github", "workflows", "on-push.yml"), ON_PUSH_YML);
 
 writeFileSync(join(target, "README.md"), README_MD);
 
+// A dev who runs `npm install` locally in the content repo would otherwise
+// risk a later sync's `git add .` staging node_modules. validate.mjs already
+// whitelists .gitignore as an allowed top-level file.
+writeFileSync(join(target, ".gitignore"), "node_modules/\n");
+
 execFileSync("git", ["init", "-b", "main"], { cwd: target, stdio: "inherit" });
 execFileSync("git", ["add", "-A"], { cwd: target, stdio: "inherit" });
 execFileSync("git", ["commit", "-m", "Initial content from site bootstrap"], { cwd: target, stdio: "inherit" });
