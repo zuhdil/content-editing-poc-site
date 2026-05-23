@@ -3,7 +3,7 @@
   "about.intro": "Short description here.",
   "about.mission_body": "Markdown content.\n\nMulti-paragraph supported.",
   "features.footer_note": "A small markdown note at the bottom.",
-  "features.heading": "Features",
+  "features.heading": "All the Features",
   "features.subtitle": "Subtitle goes here",
   "home.cta.button_label": "Learn more",
   "home.feature_one.description": "Edit content as files in a separate repo.\nNo code knowledge needed.",
