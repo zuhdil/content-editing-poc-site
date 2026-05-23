@@ -1,1 +1,17 @@
-{}
+{
+  "about.heading": "About this POC",
+  "about.intro": "Short description here.",
+  "about.mission_body": "Markdown content.\n\nMulti-paragraph supported.",
+  "features.footer_note": "A small markdown note at the bottom.",
+  "features.heading": "Features",
+  "features.subtitle": "Subtitle goes here",
+  "home.cta.button_label": "Learn more",
+  "home.feature_one.description": "Edit content as files in a separate repo.\nNo code knowledge needed.",
+  "home.feature_one.title": "Edit in GitHub",
+  "home.feature_two.description": "Validation runs, then the site updates.",
+  "home.feature_two.title": "Auto-deploy",
+  "home.hero.subtitle": "A demonstration of separate-repo content editing",
+  "home.hero.title": "Welcome to the Content POC",
+  "layout.footer.copyright": "© 2026 POC",
+  "layout.nav.tagline": "Content POC"
+}

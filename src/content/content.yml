@@ -1,32 +1,30 @@
 home:
   hero:
-    title: "Welcome to the Content POC"
-    subtitle: "A demonstration of separate-repo content editing"
+    title: Welcome to the Content POC
+    subtitle: A demonstration of separate-repo content editing
   feature_one:
-    title: "Edit in GitHub"
-    description: |
+    title: Edit in GitHub
+    description: |-
       Edit content as files in a separate repo.
       No code knowledge needed.
   feature_two:
-    title: "Auto-deploy"
-    description: |
-      Validation runs, then the site updates.
+    title: Auto-deploy
+    description: Validation runs, then the site updates.
   cta:
-    button_label: "Learn more"
+    button_label: Learn more
 about:
-  heading: "About this POC"
-  intro: "Short description here."
-  mission_body: |
+  heading: About this POC
+  intro: Short description here.
+  mission_body: |-
     Markdown content.
 
     Multi-paragraph supported.
 features:
-  heading: "Features"
-  subtitle: "Subtitle goes here"
-  footer_note: |
-    A small markdown note at the bottom.
+  heading: Features
+  subtitle: Subtitle goes here
+  footer_note: A small markdown note at the bottom.
 layout:
   footer:
-    copyright: "© 2026 POC"
+    copyright: © 2026 POC
   nav:
-    tagline: "Content POC"
+    tagline: Content POC
