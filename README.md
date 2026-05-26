@@ -37,3 +37,4 @@ Deployed to GitHub Pages: https://zuhdil.github.io/content-editing-poc-site/
 See the design spec and implementation plan in the POC root's
 `docs/superpowers/` directory for the full picture, including the
 3-way merge table and the conflict-resolution lifecycle.
+
