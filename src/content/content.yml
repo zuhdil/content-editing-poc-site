@@ -21,8 +21,8 @@ about:
     Multi-paragraph supported.
 features:
   heading: All the Features
-  subtitle: Subtitle goes here
-  footer_note: A small markdown note at the bottom.
+  subtitle: Subtitle goes here. Branch update.
+  footer_note: A small markdown note at the bottom. Branch update.
 layout:
   footer:
     copyright: © 2026 POC
